@@ -9,7 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-
+#include <fcntl.h>
+#include <unistd.h>
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -21,7 +22,7 @@ CMundo::CMundo()
 
 CMundo::~CMundo()
 {
-
+	close(fd);
 }
 
 void CMundo::InitGL()
@@ -104,8 +105,7 @@ void CMundo::OnDraw()
 	jugador2.Dibuja();
 	esfera.Dibuja();
 
-	/////////////////
-	///////////
+	////////////////	///////////
 	//		AQUI TERMINA MI DIBUJO
 	////////////////////////////
 
@@ -135,6 +135,10 @@ void CMundo::OnTimer(int value)
 		esfera.velocidad.x=2+2*rand()/(float)RAND_MAX;
 		esfera.velocidad.y=2+2*rand()/(float)RAND_MAX;
 		puntos2++;
+		char msg2[100];
+                sprintf(msg2,"Jugador 2 marca 1 punto, lleva un total de %d puntos. \n", puntos2);
+                write(fd, msg2, strlen(msg2)+1);
+
 	}
 
 	if(fondo_dcho.Rebota(esfera))
@@ -144,6 +148,10 @@ void CMundo::OnTimer(int value)
 		esfera.velocidad.x=-2-2*rand()/(float)RAND_MAX;
 		esfera.velocidad.y=-2-2*rand()/(float)RAND_MAX;
 		puntos1++;
+		char msg1[100];
+                sprintf(msg1,"Jugador 1  marca 1 punto, lleva un total de %d puntos. \n", puntos1);
+                write(fd, msg1, strlen(msg1)+1);
+
 	}
 
 }
@@ -164,6 +172,7 @@ void CMundo::OnKeyboardDown(unsigned char key, int x, int y)
 
 void CMundo::Init()
 {
+	fd=open ("tuberia",O_WRONLY);
 	Plano p;
 //pared inferior
 	p.x1=-7;p.y1=-5;
