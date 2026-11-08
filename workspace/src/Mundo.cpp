@@ -138,7 +138,7 @@ void CMundo::OnTimer(int value)
 		char msg2[100];
                 sprintf(msg2,"Jugador 2 marca 1 punto, lleva un total de %d puntos. \n", puntos2);
                 write(fd, msg2, strlen(msg2)+1);
-
+		if(puntos2==3)exit(0);
 	}
 
 	if(fondo_dcho.Rebota(esfera))
@@ -151,6 +151,7 @@ void CMundo::OnTimer(int value)
 		char msg1[100];
                 sprintf(msg1,"Jugador 1  marca 1 punto, lleva un total de %d puntos. \n", puntos1);
                 write(fd, msg1, strlen(msg1)+1);
+		if(puntos1==3)exit(0);
 
 	}
 
