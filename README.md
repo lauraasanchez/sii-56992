@@ -12,4 +12,5 @@
 ## 📖 Descripción
 
 Este proyecto consiste en el desarrollo de un juego de tenis en C++. En esta primera práctica se ha modificado el código para dar movimiento a las raquetas y a la esfera.
+Después de la segunda práctica ya tengo añadido el marcador y el cierre automático del juego a los 3 puntos
 ---
